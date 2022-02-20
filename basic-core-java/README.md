@@ -106,7 +106,7 @@ If this was a batch process then I would use the below two changes:
 - Sort the loans by descending amounts, will allow maximum usage of available Facilities.
 - Allow partial allocation so that the whole loan is not unfunded.
 - Allow the loan to be funded by multiple facilities, this will allow to use the low interest facilities fully before using the higher interest facilities.
-
+- Also check if new facilities have come up since last allocation, this will allow to change assignment to new facility, the newer facility has lower interest.
 
 6. Discuss your solution’s runtime complexity.
 

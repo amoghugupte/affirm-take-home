@@ -1,15 +1,16 @@
 # Read Me First
-### Loan Facility assignment utility
+### Loan Facility assignment app
 #### Architecture and Design
 
 ![](https://github.com/amoghugupte/affirm-take-home/blob/main/basic-core-java/images/process.png)
 
-This is a basic core java utility. The utility reads from four csv files:
-- loans.csv
-- covenants.csv
-- facilities.csv
-- banks.csv
+This is a [spring boot](https://spring.io/projects/spring-boot) application.
+It used in memory [H2 Database Engine](https://www.h2database.com/html/main.html) to store the data.
 
+
+
+
+Few points - 
 1. Banks, Facilities and Covenants create the Facility data.
 2. Facility data is used to create the covenant filters.
 3. Loans data is read one at a time and run through the Covenant filter, Covenants are filtered by the following criteria:
@@ -20,7 +21,8 @@ This is a basic core java utility. The utility reads from four csv files:
     1. Interest Rate - the facility with the minimum interest rate is used.
     2. Pending amount - If the interest rates are the same then Facility with lower amount is chosen, to keep the bigger facilities for larger loans.
 5. The loan assignment is captured with the Yield.
-6. Loan assignment is exported as is, while the Yield is aggregated at Facility level and then exported.
+6. The application also captures the time and history for a facility and loan assignment, which can help in debugging. 
+7. Loan assignment is exported as is, while the Yield is aggregated at Facility level and then exported.
 
 ##### Design
 
@@ -107,7 +109,7 @@ If this was a batch process then I would use the below two changes:
 - Sort the loans by descending amounts, will allow maximum usage of available Facilities.
 - Allow partial allocation so that the whole loan is not unfunded.
 - Allow the loan to be funded by multiple facilities, this will allow to use the low interest facilities fully before using the higher interest facilities.
-
+- Also check if new facilities have come up since last allocation, this will allow to change assignment to new facility, the newer facility has lower interest.
 
 6. Discuss your solution’s runtime complexity.
 
@@ -115,8 +117,6 @@ The current solution's runtime complexity is O (L * F).
 Where:
 1. L - total number of loans
 2. F - Number of Facilities
-
-
 
 
 
