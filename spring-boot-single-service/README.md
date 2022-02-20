@@ -28,7 +28,7 @@ It used in memory [H2 Database Engine](https://www.h2database.com/html/main.html
 | yield-controller | GET | /yield/v1/current |  | Yield | get all the yield currently in the system. |
 
 Bank
-```json
+```
 {
   id	integer,
   name	string
@@ -36,7 +36,7 @@ Bank
 ```
 
 Facility
-```json
+```
 {
   id	integer($int32)
   bankId	integer($int32)
@@ -50,7 +50,7 @@ Facility
 ```
 
 Loan
-```json
+```
 {
 interestRate	number
 amount	number
@@ -61,7 +61,7 @@ state	string
 ```
 
 LoanAssignment
-```json
+```
 {
   loanId	integer
   facilityId	integer
@@ -69,7 +69,7 @@ LoanAssignment
 ```
 
 Yield
-```json
+```
 {
 facilityId	integer
 expectedYield	integer
@@ -99,6 +99,7 @@ Facility data is used to create the covenant filters. Covenant filters are creat
 2. If there is Max Default likelyhood covenant for the facility, the bank Max Default likelyhood is used.
 
 ![](https://github.com/amoghugupte/affirm-take-home/blob/main/basic-core-java/images/CovenantStrategy.png)
+
 
 #### Deployment/run steps
 ##### Prerequisite
