@@ -7,8 +7,74 @@
 This is a [spring boot](https://spring.io/projects/spring-boot) application.
 It used in memory [H2 Database Engine](https://www.h2database.com/html/main.html) to store the data.
 
+![](https://github.com/amoghugupte/affirm-take-home/blob/main/spring-boot-single-service/images/architecture.png)
 
+| Controller      | Type | Api | Input | Output | Description |
+|-----------------| ----------- | ----------- | ----------- | ----------- | ----------- | 
+| bank-controller | POST | /bank/v1/save | Bank |  | Api to add just one bank. |
+| bank-controller | POST | /bank/v1/load | csv file |  | Api to load a csv into the service |
+| bank-controller | GET | /bank/v1/id | id of the Bank | Bank  | Api to get details of the bank by id |
+| bank-controller | GET | /bank/v1/current |  | List of Bank | get all the banks currently in the system. |
+| facility-controller | POST | /facility/v1/save | Facility |  | Api to add just one facility |
+| facility-controller | POST | /facility/v1/load | csv file |  | Api to load a csv into the service |
+| facility-controller | GET | /facility/v1/current |  | List of facility | get all the facilities currently in the system. |
+| covenant-controller | POST | /covenant/v1/load | csv file |  | Api to load a csv into the service |
+| loan-controller | POST | /loan/v1/load | csv file |  | Api to load a csv into the service |
+| loan-controller | POST | /loan/v1/assign |  |  | Triggers the assign process and saves the results in the h2 db. |
+| loan-assignment-controller | POST | /loan-assign/v1/assign | Loan |  | Assign one loan |
+| loan-assignment-controller | GET | /loan-assign/v1/export |  | csv file | exports the loan assignment csv |
+| loan-assignment-controller | GET | /loan-assign/v1/assignments |  | List of Loan assignments | get all the loan-assignments currently in the system. |
+| yield-controller | GET | /yield/v1/export |  | csv file | exports the yields aggregated by facility-id csv. |
+| yield-controller | GET | /yield/v1/current |  | Yield | get all the yield currently in the system. |
 
+Bank
+```json
+{
+  id	integer,
+  name	string
+}
+```
+
+Facility
+```json
+{
+  id	integer($int32)
+  bankId	integer($int32)
+  amount	number
+  currAmount	number
+  interestRate	number
+  bank	Bank
+  bannedStates	[string]
+  maxDefaultLikelihood	number
+}
+```
+
+Loan
+```json
+{
+interestRate	number
+amount	number
+id	integer($int32)
+defaultLikelihood	number
+state	string
+}
+```
+
+LoanAssignment
+```json
+{
+  loanId	integer
+  facilityId	integer
+}
+```
+
+Yield
+```json
+{
+facilityId	integer
+expectedYield	integer
+}
+```
 
 Few points - 
 1. Banks, Facilities and Covenants create the Facility data.
