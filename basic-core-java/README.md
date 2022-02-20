@@ -1,7 +1,7 @@
 ### Loan Facility assignment utility
 #### Architecture and Design
 
-![](D:\git\ssh\affirm-take-home\basic-core-java\images\process.png)
+![](https://github.com/amoghugupte/affirm-take-home/blob/main/basic-core-java/images/process.png)
 
 This is a basic core java utility. The utility reads from four csv files:
 - loans.csv
@@ -29,7 +29,7 @@ Facility data is used to create the covenant filters. Covenant filters are creat
     1. If there is no banned state covenant for the facility, the bank banned state list is used.
     2. If there is Max Default likelyhood covenant for the facility, the bank Max Default likelyhood is used.
 
-![](D:\git\ssh\affirm-take-home\basic-core-java\images\CovenantStrategy.png)
+![](https://github.com/amoghugupte/affirm-take-home/blob/main/basic-core-java/images/CovenantStrategy.png)
 
 #### Deployment/run steps
 ##### Prerequisite
