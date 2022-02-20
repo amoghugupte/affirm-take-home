@@ -6,75 +6,12 @@
 
 This is a [spring boot](https://spring.io/projects/spring-boot) application.
 It used in memory [H2 Database Engine](https://www.h2database.com/html/main.html) to store the data.
+It uses [Zuul](https://github.com/Netflix/zuul/wiki) and [netflix eureka](https://github.com/Netflix/eureka)
+This is a very loosely coupled microservice implementation.
 
-![](https://github.com/amoghugupte/affirm-take-home/blob/main/spring-boot-single-service/images/architecture.png)
+![](https://github.com/amoghugupte/affirm-take-home/blob/main/spring-boot-single-service/images/micro-service.png)
 
-| Controller      | Type | Api | Input | Output | Description |
-| ----------------- | ----------- | ----------- | ----------- | ----------- | ----------- | 
-| bank-controller | POST | /bank/v1/save | Bank |  | Api to add just one bank. |
-| bank-controller | POST | /bank/v1/load | csv file |  | Api to load a csv into the service |
-| bank-controller | GET | /bank/v1/id | id of the Bank | Bank  | Api to get details of the bank by id |
-| bank-controller | GET | /bank/v1/current |  | List of Bank | get all the banks currently in the system. |
-| facility-controller | POST | /facility/v1/save | Facility |  | Api to add just one facility |
-| facility-controller | POST | /facility/v1/load | csv file |  | Api to load a csv into the service |
-| facility-controller | GET | /facility/v1/current |  | List of facility | get all the facilities currently in the system. |
-| covenant-controller | POST | /covenant/v1/load | csv file |  | Api to load a csv into the service |
-| loan-controller | POST | /loan/v1/load | csv file |  | Api to load a csv into the service |
-| loan-controller | POST | /loan/v1/assign |  |  | Triggers the assign process and saves the results in the h2 db. |
-| loan-assignment-controller | POST | /loan-assign/v1/assign | Loan |  | Assign one loan |
-| loan-assignment-controller | GET | /loan-assign/v1/export |  | csv file | exports the loan assignment csv |
-| loan-assignment-controller | GET | /loan-assign/v1/assignments |  | List of Loan assignments | get all the loan-assignments currently in the system. |
-| yield-controller | GET | /yield/v1/export |  | csv file | exports the yields aggregated by facility-id csv. |
-| yield-controller | GET | /yield/v1/current |  | Yield | get all the yield currently in the system. |
-
-Bank
-```
-{
-  id	integer,
-  name	string
-}
-```
-
-Facility
-```
-{
-  id	integer($int32)
-  bankId	integer($int32)
-  amount	number
-  currAmount	number
-  interestRate	number
-  bank	Bank
-  bannedStates	[string]
-  maxDefaultLikelihood	number
-}
-```
-
-Loan
-```
-{
-interestRate	number
-amount	number
-id	integer($int32)
-defaultLikelihood	number
-state	string
-}
-```
-
-LoanAssignment
-```
-{
-  loanId	integer
-  facilityId	integer
-}
-```
-
-Yield
-```
-{
-facilityId	integer
-expectedYield	integer
-}
-```
+Api information is same as [](../spring-boot-single-service)
 
 Few points - 
 1. Banks, Facilities and Covenants create the Facility data.
@@ -113,15 +50,19 @@ This utility was created with Java 11.
 - mvn clean package
 
 ###### Run
-- Start the application
-  ```java com.amogh.affirm.LoanServiceApplication```
+###### Start the application
+1. Start com.amogh.affirm.ms.eureka.LoanEurekaServerApplication
+2. Start com.amogh.affirm.ms.gateway.LoanGatewayApplication
+3. Start com.amogh.affirm.ms.facility.FacilityServiceApplication
+4. Start com.amogh.affirm.ms.loan.LoanServiceApplication
 
-- Open the landing page [http://localhost:8080](http://localhost:8080)
+- Open the landing page [http://localhost:9700](http://localhost:9700)
 
 - Upload banks.csv, facilities.csv, covenants.csv and loans.csv
 - Hit Assign
 - Click on the export links to down the csvs.
-- Access [H2-Console](http://localhost:8080/h2-console)
+- Access [H2-Console](http://localhost:9700/facility-service/h2-console) - user: sa, password: password
+- Access [H2-Console](http://localhost:9700/loan-service/h2-console) - user: sa, password: password
 - Or Swagger link
 
 The uploads can also be done through any rest client like postman or similar.
@@ -130,7 +71,7 @@ The uploads can also be done through any rest client like postman or similar.
 1. How long did you spend working on the problem? What did you find to be the most
    difficult part?
 
-I spent roughly five-six hours. The most time was spend on validating the results. The small data-set was really useful.
+I spent roughly 4 hours on top of the spring boot single application. The most time was spend on validating the results. The small data-set was really useful.
 
 2. How would you modify your data model or code to account for an eventual introduction
    of new, as-of-yet unknown types of covenants, beyond just maximum default likelihood
