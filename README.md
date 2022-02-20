@@ -6,3 +6,4 @@ It has been solved in multiple ways:
 2. Spring boot monolith application for details see [this](spring-boot-single-service)
 3. Multiple micro-services application for details see [this](micro-service) 
 
+Each folder has a large-out folder for output for the sample large data-set.
