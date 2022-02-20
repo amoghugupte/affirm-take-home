@@ -1,0 +1,17 @@
+server:
+  port: 9700
+spring:
+  application:
+    name: loan-gateway
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: '${EUREKA_URI:http://localhost:9701/eureka}'
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000

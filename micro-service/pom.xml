@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.amogh.affirm</groupId>
+    <artifactId>micro-service-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>eureka-micro-service</module>
+        <module>loan-micro-service</module>
+        <module>facility-micro-service</module>
+        <module>zuul-micro-service</module>
+        <module>micro-service-common</module>
+    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.6.RELEASE</version>
+    </parent>
+    <properties>
+        <java.version>1.8</java.version>
+        <lombok.version>1.18.22</lombok.version>
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
+        <spring-cloud-dependencies.version>Finchley.SR2</spring-cloud-dependencies.version>
+    </properties>
+
+</project>

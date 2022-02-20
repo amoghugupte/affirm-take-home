@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: eureka-micro-service
+
+server:
+  port: 9701
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://localhost:9701/eureka

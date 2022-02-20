@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Affirm Take Home</title>
+</head>
+<body>
+<form target="_blank" method="POST" action="/facility-service/bank/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a bank csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form target="_blank" method="POST" action="/facility-service/facility/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a facility csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form target="_blank" method="POST" action="/facility-service/covenant/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a covenant csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form target="_blank" method="POST" action="/loan-service/loan/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a loan csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form target="_blank" method="POST" action="/loan-service/loan/v1/assign" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Assign the loans</label></td>
+            <td><input type="submit" value="Assign" /></td>
+        </tr>
+    </table>
+</form><br>
+Export:
+<a href="/facility-service/loan-assign/v1/export">Loan Assignment</a><br>
+<a href="/facility-service/yield/v1/export">Yield</a><br>
+<a href="/facility-service/swagger-ui/index.html">Facility-Swagger-UI</a><br>
+<a href="/facility-service/h2-console">facility h2-console</a><br>
+<a href="/loan-service/h2-console">loan h2-console</a><br>
+
+</body>
+</html>
