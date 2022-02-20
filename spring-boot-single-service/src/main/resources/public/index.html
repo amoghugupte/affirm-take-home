@@ -5,16 +5,55 @@
     <title>Affirm Take Home</title>
 </head>
 <body>
-    <form method="POST" action="/spring-mvc-xml/uploadFile" enctype="multipart/form-data">
-        <table>
-            <tr>
-                <td><label path="file">Select a file to upload</label></td>
-                <td><input type="file" name="file" /></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
-    </form>
+<form method="POST" action="/bank/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a bank csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form method="POST" action="/facility/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a facility csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form method="POST" action="/covenant/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a covenant csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form method="POST" action="/loan/v1/load" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Select a loan csv</label></td>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+</form>
+<form method="POST" action="/loan/v1/assign" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file">Assign the loans</label></td>
+            <td><input type="submit" value="Assign" /></td>
+        </tr>
+    </table>
+</form><br>
+Export:
+<a href="/loan-assign/v1/export">Loan Assignment</a><br>
+<a href="/yield/v1/export">Yield</a><br>
+<a href="/swagger-ui">Swagger-UI</a><br>
+<a href="/h2-console">h2-console</a><br>
+
 </body>
 </html>
