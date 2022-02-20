@@ -54,7 +54,7 @@ difficult part?
 
 I spent roughly two-three hours. The most time was spend on validating the results. The small data-set was really useful.
 
-3. How would you modify your data model or code to account for an eventual introduction
+2. How would you modify your data model or code to account for an eventual introduction
    of new, as-of-yet unknown types of covenants, beyond just maximum default likelihood
    and state restrictions?
    
@@ -66,7 +66,7 @@ I spent roughly two-three hours. The most time was spend on validating the resul
    Rest should not change.
 
 
-4. How would you architect your solution as a production service wherein new facilities can
+3. How would you architect your solution as a production service wherein new facilities can
       be introduced at arbitrary points in time. Assume these facilities become available by the
       finance team emailing your team and describing the addition with a new set of CSVs.
 
@@ -76,7 +76,7 @@ I spent roughly two-three hours. The most time was spend on validating the resul
    3. Loan Service - This will capture the loan details and publish them to a kafka topic. 
    4. Loan Assignment Service to read from the kafka topics mentioned above and publish Assignment and Yield to new topics.
 
-5. Your solution most likely simulates the streaming process by directly calling a method in
+4. Your solution most likely simulates the streaming process by directly calling a method in
          your code to process the loans inside of a for loop. What would a REST API look like for
          this same service? Stakeholders using the API will need, at a minimum, to be able to
          request a loan be assigned to a facility, and read the funding status of a loan, as well as
@@ -98,7 +98,7 @@ I spent roughly two-three hours. The most time was spend on validating the resul
 
 Please see [here](../spring-boot-single-service) 
 
-6. How might you improve your assignment algorithm if you were permitted to assign loans
+5. How might you improve your assignment algorithm if you were permitted to assign loans
          in batch rather than streaming? We are not looking for code here, but pseudo code or
          description of a revised algorithm appreciated.
 
@@ -108,7 +108,8 @@ If this was a batch process then I would use the below two changes:
 - Allow the loan to be funded by multiple facilities, this will allow to use the low interest facilities fully before using the higher interest facilities.
 
 
-8. Discuss your solution’s runtime complexity.
+6. Discuss your solution’s runtime complexity.
+
 The current solution's runtime complexity is O (L * F).
 Where:
    1. L - total number of loans
