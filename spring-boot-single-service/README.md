@@ -10,7 +10,7 @@ It used in memory [H2 Database Engine](https://www.h2database.com/html/main.html
 ![](https://github.com/amoghugupte/affirm-take-home/blob/main/spring-boot-single-service/images/architecture.png)
 
 | Controller      | Type | Api | Input | Output | Description |
-|-----------------| ----------- | ----------- | ----------- | ----------- | ----------- | 
+| ----------------- | ----------- | ----------- | ----------- | ----------- | ----------- | 
 | bank-controller | POST | /bank/v1/save | Bank |  | Api to add just one bank. |
 | bank-controller | POST | /bank/v1/load | csv file |  | Api to load a csv into the service |
 | bank-controller | GET | /bank/v1/id | id of the Bank | Bank  | Api to get details of the bank by id |
@@ -100,29 +100,37 @@ Facility data is used to create the covenant filters. Covenant filters are creat
 
 ![](https://github.com/amoghugupte/affirm-take-home/blob/main/basic-core-java/images/CovenantStrategy.png)
 
+![](https://github.com/amoghugupte/affirm-take-home/blob/main/spring-boot-single-service/images/highDesign.png)
 
 #### Deployment/run steps
 ##### Prerequisite
-This utility was created with Java 8+.
+This utility was created with Java 11.
 - Maven
-- Java 8+.
+- Java 11+.
 
 ##### To run
 ###### Build
 - mvn clean package
 
 ###### Run
-*java com.amogh.affirm.basic.main.LoanAssignmentMain [-help] [-p large|small] [-c <folder-path>]*
+- Start the application
+  ```java com.amogh.affirm.LoanServiceApplication```
 
-These are the options:
-- -p - Pre-fixed mode, to use the test data provided with the assignment. The output assignments.csv and yields.csv, will be written in the current working dir.
-- -c - Custom mode, to use new test data provide a folder path. it should contain the four csv - loans.csv, covenants.csv, facilities.csv and banks.csv. The output assignments.csv and yields.csv, will be written in the same dir
+- Open the landing page [http://localhost:8080](http://localhost:8080)
+
+- Upload banks.csv, facilities.csv, covenants.csv and loans.csv
+- Hit Assign
+- Click on the export links to down the csvs.
+- Access [H2-Console](http://localhost:8080/h2-console)
+- Or Swagger link
+
+The uploads can also be done through any rest client like postman or similar.
 
 ### Write Up:
 1. How long did you spend working on the problem? What did you find to be the most
    difficult part?
 
-I spent roughly two-three hours. The most time was spend on validating the results. The small data-set was really useful.
+I spent roughly five-six hours. The most time was spend on validating the results. The small data-set was really useful.
 
 2. How would you modify your data model or code to account for an eventual introduction
    of new, as-of-yet unknown types of covenants, beyond just maximum default likelihood
@@ -166,7 +174,8 @@ I spent roughly two-three hours. The most time was spend on validating the resul
         - Input - nothing
         - Output - List of *Facility {id integer, bankId integer, amount number, currAmount number, interestRate number, effectiveFrom date, effectiveTo date}*
 
-Please see [here](../spring-boot-single-service)
+        - This is broadly similar to what we have here.
+
 
 5. How might you improve your assignment algorithm if you were permitted to assign loans
    in batch rather than streaming? We are not looking for code here, but pseudo code or
@@ -184,22 +193,3 @@ The current solution's runtime complexity is O (L * F).
 Where:
 1. L - total number of loans
 2. F - Number of Facilities
-
-
-
-
-
-The following was discovered as part of building this project:
-
-* The JVM level was changed from '1.8' to '17', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.
-* The original package name 'com.amogh.affirm.loan-service' is invalid and this project uses 'com.amogh.affirm.loanservice' instead.
-
-# Getting Started
-
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.0-M1/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.0.0-M1/maven-plugin/reference/html/#build-image)
-
