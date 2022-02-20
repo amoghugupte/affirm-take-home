@@ -38,10 +38,79 @@ This utility was created with Java 8+.
 - Java 8+.
 
 ##### To run
+###### Build
+- mvn clean package 
 
+###### Run
 *java com.amogh.affirm.basic.main.LoanAssignmentMain [-help] [-p large|small] [-c <folder-path>]*
 
 These are the options:
 - -p - Pre-fixed mode, to use the test data provided with the assignment. The output assignments.csv and yields.csv, will be written in the current working dir.
 - -c - Custom mode, to use new test data provide a folder path. it should contain the four csv - loans.csv, covenants.csv, facilities.csv and banks.csv. The output assignments.csv and yields.csv, will be written in the same dir
+
+### Write Up:
+1. How long did you spend working on the problem? What did you find to be the most
+difficult part?
+
+I spent roughly two-three hours. The most time was spend on validating the results. The small data-set was really useful.
+
+3. How would you modify your data model or code to account for an eventual introduction
+   of new, as-of-yet unknown types of covenants, beyond just maximum default likelihood
+   and state restrictions?
+   
+   The modification will be in the below:
+   1. Bank and Facility model.
+   2. New CovenantStrategy
+   3. CovenantFactory for the new CovenantStrategy.
+   
+   Rest should not change.
+
+
+4. How would you architect your solution as a production service wherein new facilities can
+      be introduced at arbitrary points in time. Assume these facilities become available by the
+      finance team emailing your team and describing the addition with a new set of CSVs.
+
+      I would Build this as micro-services. Something with below components:
+   1. Facility Poller which will keep checking the email for new facilities.
+   2. Facility Service which will capture the current facility data and publish the updated data to a kafka topic.
+   3. Loan Service - This will capture the loan details and publish them to a kafka topic. 
+   4. Loan Assignment Service to read from the kafka topics mentioned above and publish Assignment and Yield to new topics.
+
+5. Your solution most likely simulates the streaming process by directly calling a method in
+         your code to process the loans inside of a for loop. What would a REST API look like for
+         this same service? Stakeholders using the API will need, at a minimum, to be able to
+         request a loan be assigned to a facility, and read the funding status of a loan, as well as
+         query the capacities remaining in facilities.
+
+   The rest api will look like:
+   1. new loan 
+      - Api - /loans/new 
+      - Input - *Loan { interestRate number, amount	number, id integer, defaultLikelihood number, state string }*
+      - Output - Success message
+   2. Assign Loan
+      - Api - /loans/assign/{id} 
+      - Input - *id*  for the loan
+      - Output - *LoanAssignment {loanId integer, facilityId integer}*
+   3. Facilities
+      - Api - /facility/get
+      - Input - nothing
+      - Output - List of *Facility {id integer, bankId integer, amount number, currAmount number, interestRate number, effectiveFrom date, effectiveTo date}*
+
+Please see [here](../spring-boot-single-service) 
+
+6. How might you improve your assignment algorithm if you were permitted to assign loans
+         in batch rather than streaming? We are not looking for code here, but pseudo code or
+         description of a revised algorithm appreciated.
+
+If this was a batch process then I would use the below two changes:
+- Sort the loans by descending amounts, will allow maximum usage of available Facilities.
+- Allow partial allocation so that the whole loan is not unfunded.
+- Allow the loan to be funded by multiple facilities, this will allow to use the low interest facilities fully before using the higher interest facilities.
+
+
+8. Discuss your solution’s runtime complexity.
+The current solution's runtime complexity is O (L * F).
+Where:
+   1. L - total number of loans
+   2. F - Number of Facilities 
 
