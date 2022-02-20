@@ -1,4 +1,3 @@
-# Read Me First
 ### Loan Facility assignment app
 #### Architecture and Design
 
